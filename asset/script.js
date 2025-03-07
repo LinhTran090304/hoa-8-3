@@ -108,8 +108,8 @@
   var flowAnimate = eval(
     Jscex.compile("async", function () {
       do {
-        tree.flower(2);
-        $await(Jscex.Async.sleep(10));
+        tree.flower(20);
+        $await(Jscex.Async.sleep(2));
       } while (tree.canFlower());
     })
   );

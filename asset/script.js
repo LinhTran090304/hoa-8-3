@@ -105,17 +105,14 @@
     })
   );
 
-var extraFlowAnimate = eval(
-  Jscex.compile("async", function () {
-    while (true) {
-      for (var i = 0; i < 5; i++) { // Tạo 5 lần mỗi vòng
-        tree.flower(20);
-      }
-      $await(Jscex.Async.sleep(2));
-    }
-  })
-);
-
+  var flowAnimate = eval(
+    Jscex.compile("async", function () {
+      do {
+        tree.flower(2);
+        $await(Jscex.Async.sleep(10));
+      } while (tree.canFlower());
+    })
+  );
 
   var moveAnimate = eval(
     Jscex.compile("async", function () {
@@ -166,18 +163,18 @@ var extraFlowAnimate = eval(
     })
   );
 
-var runAsync = eval(
-  Jscex.compile("async", function () {
-    $await(seedAnimate());
-    $await(growAnimate());
-    $await(flowAnimate());
-    $await(extraFlowAnimate()); // Chạy vòng lặp tạo thêm trái tim
-    $await(moveAnimate());
-    
-    textAnimate().start();
-    $await(jumpAnimate());
-  })
-);
+  var runAsync = eval(
+    Jscex.compile("async", function () {
+      $await(seedAnimate());
+      $await(growAnimate());
+      $await(flowAnimate());
+      $await(moveAnimate());
+
+      textAnimate().start();
+
+      $await(jumpAnimate());
+    })
+  );
 
   runAsync().start();
 })();

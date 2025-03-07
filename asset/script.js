@@ -105,14 +105,14 @@
     })
   );
 
-  var flowAnimate = eval(
-    Jscex.compile("async", function () {
-      do {
-        tree.flower(20);
-        $await(Jscex.Async.sleep(2));
-      } while (tree.canFlower());
-    })
-  );
+var flowAnimate = eval(
+  Jscex.compile("async", function () {
+    while (true) { // Chạy vô hạn thay vì dựa vào `canFlower()`
+      tree.flower(50); // Tạo 10 trái tim mỗi lần
+      $await(Jscex.Async.sleep(2)); // Rơi nhanh hơn
+    }
+  })
+);
 
   var moveAnimate = eval(
     Jscex.compile("async", function () {

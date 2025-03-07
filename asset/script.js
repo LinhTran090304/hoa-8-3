@@ -105,14 +105,17 @@
     })
   );
 
-var flowAnimate = eval(
+var extraFlowAnimate = eval(
   Jscex.compile("async", function () {
-    while (true) { // Chạy vô hạn thay vì dựa vào `canFlower()`
-      tree.flower(50); // Tạo 10 trái tim mỗi lần
-      $await(Jscex.Async.sleep(2)); // Rơi nhanh hơn
+    while (true) {
+      for (var i = 0; i < 5; i++) { // Tạo 5 lần mỗi vòng
+        tree.flower(20);
+      }
+      $await(Jscex.Async.sleep(2));
     }
   })
 );
+
 
   var moveAnimate = eval(
     Jscex.compile("async", function () {
@@ -163,18 +166,18 @@ var flowAnimate = eval(
     })
   );
 
-  var runAsync = eval(
-    Jscex.compile("async", function () {
-      $await(seedAnimate());
-      $await(growAnimate());
-      $await(flowAnimate());
-      $await(moveAnimate());
-
-      textAnimate().start();
-
-      $await(jumpAnimate());
-    })
-  );
+var runAsync = eval(
+  Jscex.compile("async", function () {
+    $await(seedAnimate());
+    $await(growAnimate());
+    $await(flowAnimate());
+    $await(extraFlowAnimate()); // Chạy vòng lặp tạo thêm trái tim
+    $await(moveAnimate());
+    
+    textAnimate().start();
+    $await(jumpAnimate());
+  })
+);
 
   runAsync().start();
 })();
